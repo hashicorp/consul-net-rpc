@@ -88,10 +88,6 @@ func (cc *MsgpackCodec) WriteRequest(r *rpc.Request, body interface{}) error {
 	return cc.write(r, body)
 }
 
-func (cc *MsgpackCodec) SourceAddr() net.Addr {
-	return cc.conn.RemoteAddr()
-}
-
 func (cc *MsgpackCodec) Close() error {
 	if cc.closed {
 		return nil
@@ -127,4 +123,8 @@ func (cc *MsgpackCodec) read(obj interface{}) (err error) {
 		return cc.dec.Decode(&obj2)
 	}
 	return cc.dec.Decode(obj)
+}
+
+func (cc *MsgpackCodec) SourceAddr() net.Addr {
+	return cc.conn.RemoteAddr()
 }
